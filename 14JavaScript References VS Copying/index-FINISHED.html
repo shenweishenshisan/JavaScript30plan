@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+    const team = players;
+    const team2 = players.slice();//team2, team3, team4, team5是数组复制的方法
+    const team3 = [].concat(players);
+    const team4 = [...players];
+    const team5 = Array.from(players);
+    players[3] = '333';
+    console.log(players, team, team2, team3, team4, team5);
+
+    const wes = {                 //dev, dev2是对象复制的两个方法。
+        name: 'Wes',
+        age: 100,
+        social: {
+          twitter: '@wesbos',
+          facebook: 'wesbos.developer'
+        }
+      };
+
+      const dev = Object.assign({}, wes);
+      const dev2 = JSON.parse(JSON.stringify(wes));
+      wes.age = 200;
+      console.log(wes);
+      console.log(dev);
+      console.log(dev2);
+
+
+  </script>
+
+</body>
+</html>
