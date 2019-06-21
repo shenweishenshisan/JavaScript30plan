@@ -57,27 +57,26 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
-  function removeTransition(event) {
-    if (event.propertyName !== 'transform') return; // 过滤其中一种事件
-    event.target.classList.remove('playing'); 
-  }
+  <script>
+    function playAudio(e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
 
-  function playSound(event) {
-    const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`); 
-    const key = document.querySelector(`div[data-key="${event.keyCode}"]`);
-    if (!audio) return; 
+      if(!audio) return;
+      audio.currentTime = 0;
+      audio.play();
+      key.classList.add('playing');
+    }
 
-    key.classList.add('playing'); 
-    audio.currentTime = 0;
-    audio.play();
-  }
+    function removeTransition(e) {
+      if(e.propertyName !== 'border-left-color') return;
+      this.classList.remove('playing');
+    }
 
-  const keys = Array.from(document.querySelectorAll('.key')); 
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition)); 
-  window.addEventListener('keydown', playSound);
-</script>
-
-
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener('keydown', playAudio);
+    //transitionend事件
+  </script>
 </body>
 </html>
