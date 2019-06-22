@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    html{
+      width: 100%;
+      height: 100%;
+    }
+    body{
+      width: 100%;
+      height: 100%;
+    }
+    .wrap{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: blue;
+    }
+    .clock{
+      width: 30rem;
+      height: 30rem;
+      background-color: gray;
+      border: 2rem solid white;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 0 0 0.5rem gray,
+                  inset 0 0 0 3px #EFEFEF;
+      
+    }
+    .dot{
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: red;
+      z-index: 100;
+    }
+    .hand{
+      width:50%;
+      height: 1rem;
+      border-radius: 50% 0 0 50%;
+      position: absolute;
+      top:50%;
+      left: 0;
+      margin-top: -8px; /*transform:translateY(-50)不生效，。只能用margin-top了*/
+      background-color: black;
+      transform: rotate(90deg);
+      transform-origin: 100%;
+    }
+    /* .sec-hand{
+      transition: all 1s linear;
+    } */
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="clock">
+      <div class="dot"></div>
+      <div class="hand sec-hand"></div>
+      <div class="hand min-hand"></div>
+      <div class="hand hour-hand"></div>
+    </div>
+  </div>
+  <script>
+    const sec = document.querySelector('.sec-hand');
+    const min = document.querySelector('.min-hand');
+    const hour = document.querySelector('.hour-hand');
+    function clock(){
+      var now = new Date();
+      var s = now.getSeconds() / 60 * 360 + 90;
+      sec.style.transform = `rotate(${s}deg)`;
+      var m = ((now.getMinutes() / 60) * 360) + 90;
+      min.style.transform = `rotate(${m}deg)`
+      var h = now.getHours() / 12 * 360 + 90;
+      hour.style.transform = `rotate(${h}deg)`
+    }
+    clock();
+    setInterval(clock, 1000);
+    
+  </script>
+</body>
+</html>
